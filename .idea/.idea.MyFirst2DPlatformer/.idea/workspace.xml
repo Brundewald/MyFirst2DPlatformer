@@ -24,6 +24,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Model/LevelDataModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/IL/80207cc8d5f24cb0af6a17554d3f15171a200/e8/68012173/0200001B.il" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/80207cc8d5f24cb0af6a17554d3f15171a200/ab/244b1ced/Rigidbody2D.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6af207ecd21044628913f7cc589986ae6e00/a7/d04ccd40/Input.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1zbNMPTXUpZxDq8nXazyC1lOMGe" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -97,6 +98,10 @@
       <workItem from="1636569591647" duration="4034000" />
       <workItem from="1636616134211" duration="2524000" />
       <workItem from="1636641805844" duration="1000" />
+      <workItem from="1636709266426" duration="2241000" />
+      <workItem from="1636723903423" duration="606000" />
+      <workItem from="1636795941418" duration="6784000" />
+      <workItem from="1636960689096" duration="9717000" />
     </task>
     <servers />
   </component>

@@ -12,6 +12,7 @@ public sealed class EnteryPoint : MonoBehaviour
     [SerializeField] private GameObject _scoreDisplay;
 
     private Controllers _controllers;
+    private bool _isExitPressed;
 
 
     private void Start()

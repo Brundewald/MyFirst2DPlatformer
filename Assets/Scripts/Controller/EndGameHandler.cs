@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using View;
 
 namespace Controller
 {
@@ -13,6 +12,7 @@ namespace Controller
         private GameObject _endGameDisplayPrefab;
         private GameObject _endGameDisplay;
         private GameObject _enemyObject;
+        private bool _isExitPressed;
         
         public EndGameHandler(CollisionHandler collisionHandler, AnimationHandler animatorHandler, ScoreHandler score, LevelDataModel levelData, GameObject gameObject)
         {
@@ -28,6 +28,13 @@ namespace Controller
         public void LateExecute(float deltaTime)
         {
             EndGameMessage();
+            GameExit();
+        }
+
+        private void GameExit()
+        {
+            if (_isExitPressed)
+                Application.Quit();
         }
 
         private void EndGameMessage()
@@ -44,6 +51,11 @@ namespace Controller
                     _enemyObject.SetActive(false);
                 }
             }
+        }
+        
+        public bool ExitPressed
+        {
+            set { _isExitPressed = value;}
         }
     }
 }

@@ -1,9 +1,12 @@
-﻿namespace Controller
+﻿using View;
+
+namespace Controller
 {
     public class InputController:IExecute
     {
         private readonly IUserInputProxy _horizontal;
         private readonly IUserInputProxy _vertical;
+        private readonly CharacterControlView _characterControlView;
 
         public InputController((IUserInputProxy inputHorizontal, IUserInputProxy inputVertical)input)
         {

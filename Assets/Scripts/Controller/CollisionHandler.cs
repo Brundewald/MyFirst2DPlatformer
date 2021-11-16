@@ -20,7 +20,6 @@ namespace Controller
         public void Execute(float deltaTime)
         {
             OnGroundCheck();
-            Debug.LogWarning(OnGroundCheck());
         }
 
         public void LateExecute(float deltaTime)
@@ -34,17 +33,14 @@ namespace Controller
 
               foreach (var vCollider2D in collider2Ds)
               {
-                  Debug.LogWarning(vCollider2D.name);
                   if (vCollider2D.GetComponent<BonusView>())
                   {
-                      Debug.LogError("Here is your Score");
                       _getScore = true;
                       Object.Destroy(vCollider2D.gameObject);
                   }
 
                   if (vCollider2D.GetComponent<FinishView>())
                   {
-                      Debug.LogError("Finish is reached");
                       _isFinished = true;
                   }
               }

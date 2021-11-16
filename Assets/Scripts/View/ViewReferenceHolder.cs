@@ -26,8 +26,12 @@ namespace View
 
         [Tooltip("Drag&Drop TrailRenderer object with TrailRendereView")] [SerializeField]
         private TrailRendererView _trailRendererView;
+        
+        [Tooltip("Drag&Drop here Character Control View")] [SerializeField]
+        private CharacterControlView _characterControlView;
 
 
+        public CharacterControlView CharacterControlView => _characterControlView;
         public TrailRendererView TrailRendererView => _trailRendererView;
         public MainMenuView MainMenuView => _mainMenuView;
         public ScoreDisplayView ScoreView => _scoreDisplayView;

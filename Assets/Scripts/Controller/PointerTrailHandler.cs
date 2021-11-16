@@ -13,7 +13,7 @@ namespace Controller
         public PointerTrailHandler(Transform parent, GameObject trailObject)
         {
             _trailOrigin = parent;
-            _trailSource = trailObject;
+            _trailSource = trailObject; 
         }
 
 

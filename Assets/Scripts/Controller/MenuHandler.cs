@@ -16,13 +16,11 @@ namespace Controller
 
         private void ExitMessage()
         {
-            Debug.LogError("Exit");
             _gameStateHandler.OnGameStateChange(GameState.Exit);
         }
 
         private void StartMessage()
         {
-            Debug.LogError("Start");
             _gameStateHandler.OnGameStateChange(GameState.Start);
         }
 

@@ -31,7 +31,7 @@ namespace Controller
             controllers.Add(new MenuHandler(view.MainMenuView, gameStateHandler));
             controllers.Add(new PointerTrailHandler(view.TrailRendererView.TrailParent, view.TrailRendererView.TrailSource));
             controllers.Add(new InputController(inputInitialization.GetInput()));
-            controllers.Add(new MovementHandler(inputInitialization.GetInput(), characterModel, animationHandler, view.CharacterView, collisionHandler));
+            controllers.Add(new AndroidMovementHandler(characterModel, animationHandler, view.CharacterView, collisionHandler, view.CharacterControlView));
             controllers.Add(new EnemyHandler(view.EnemyView, view.CharacterView, levelData.EnemyBasePoint, animationHandler));
             
         }

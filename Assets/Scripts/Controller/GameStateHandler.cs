@@ -19,19 +19,16 @@ namespace Controller
             switch (state)
             {
                 case GameState.MainMenu:
-                    Debug.LogWarning("Now you in a Main Menu");
                     _gameScene.SetActive(false);
                     _mainMenu.SetActive(true);
                     break;
 
                 case GameState.Start:
-                    Debug.LogWarning("Game is started");
                     _mainMenu.SetActive(false);
                     _gameScene.SetActive(true);
                     break;
                 
                 case GameState.Exit:
-                    Debug.LogWarning("Exit");
                     _endGame.ExitPressed = true;
                     break;
             }

@@ -18,7 +18,7 @@ namespace Controller
             var collisionHandler = new CollisionHandler(view.CharacterView);
             var scoreHandler = new ScoreHandler(view.ScoreView, collisionHandler);
             var endGameHandler = new EndGameHandler(collisionHandler, animationHandler, scoreHandler, levelData,
-                view.EnemyView.gameObject);
+                view.EnemyView.gameObject, objects.LevelObject);
             var gameStateHandler = new GameStateHandler(objects.MainMenu, objects.LevelObject, endGameHandler);
             
             controllers.Add(cameraController);
@@ -28,11 +28,12 @@ namespace Controller
             controllers.Add(collisionHandler);
             controllers.Add(scoreHandler);
             controllers.Add(endGameHandler);
-            controllers.Add(new MenuHandler(view.MainMenuView, gameStateHandler));
-            controllers.Add(new PointerTrailHandler(view.TrailRendererView.TrailParent, view.TrailRendererView.TrailSource));
+            controllers.Add(new MenuHandler(view.MainMenuView, view.CharacterControlView, gameStateHandler));
+            controllers.Add(new PointerTrailHandler(view.TrailRendererView.TrailParent, view.TrailRendererView.TrailSource, objects.MainMenu));
             controllers.Add(new InputController(inputInitialization.GetInput()));
-            controllers.Add(new AndroidMovementHandler(characterModel, animationHandler, view.CharacterView, collisionHandler, view.CharacterControlView));
-            controllers.Add(new EnemyHandler(view.EnemyView, view.CharacterView, levelData.EnemyBasePoint, animationHandler));
+            controllers.Add(new AndroidMovementHandler(characterModel, animationHandler, view.CharacterView, collisionHandler,
+                view.CharacterControlView, objects.LevelObject));
+            controllers.Add(new EnemyHandler(view.EnemyView, view.CharacterView, levelData.EnemyBasePoint, animationHandler, objects.LevelObject));
             
         }
     }

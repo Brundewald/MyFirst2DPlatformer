@@ -19,14 +19,8 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/80207cc8d5f24cb0af6a17554d3f15171a200/c8/9d704fbb/ForceMode2D.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/556c0ab43fa64558b49e2f517922103ec2c00/f5/076db76a/Button.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/127e81e1cb3441cc97d26b1910daae7713b000/b2/4149f676/Rect.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Model/LevelDataModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/IL/80207cc8d5f24cb0af6a17554d3f15171a200/e8/68012173/0200001B.il" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/127e81e1cb3441cc97d26b1910daae7713b000/54/496efedd/UnityEvent.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/80207cc8d5f24cb0af6a17554d3f15171a200/ab/244b1ced/Rigidbody2D.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/127e81e1cb3441cc97d26b1910daae7713b000/6c/79023761/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6af207ecd21044628913f7cc589986ae6e00/a7/d04ccd40/Input.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1zbNMPTXUpZxDq8nXazyC1lOMGe" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -106,6 +100,8 @@
       <workItem from="1636960689096" duration="9717000" />
       <workItem from="1636985728437" duration="660000" />
       <workItem from="1637081128169" duration="6872000" />
+      <workItem from="1637219295826" duration="5709000" />
+      <workItem from="1637231458142" duration="13191000" />
     </task>
     <servers />
   </component>

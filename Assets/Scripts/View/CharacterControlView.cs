@@ -12,29 +12,22 @@ namespace View
         private Button _rightArrow;
         [Tooltip("Drag&drop here Up Arrow button")] [SerializeField]
         private Button _upArrow;
+
         [Tooltip("Drag&drop here Pause button")] [SerializeField]
         private Button _pauseButton;
 
-        public void Init(UnityAction moveLeft, UnityAction moveRight, UnityAction jump)
-        {
-            _leftArrow.onClick.AddListener(moveLeft);
-            //_rightArrow.onClick.AddListener(moveRight);
-            _upArrow.onClick.AddListener(jump);
-        }
-
-        public void PauseInit(UnityAction pause)
+        public void Init(UnityAction pause)
         {
             _pauseButton.onClick.AddListener(pause);
         }
 
         public void OnDestroy()
         {
-            _leftArrow.onClick.RemoveAllListeners();
-            _rightArrow.onClick.RemoveAllListeners();
-            _upArrow.onClick.RemoveAllListeners();
+            _pauseButton.onClick.RemoveAllListeners();
         }
 
         public Button RightArrow => _rightArrow;
-
+        public Button LeftArrow => _rightArrow;
+        public Button UpArrow => _upArrow;
     }
 }

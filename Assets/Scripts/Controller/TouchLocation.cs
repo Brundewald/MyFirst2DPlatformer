@@ -5,15 +5,15 @@ namespace Controller
     public class TouchLocation
     {
         private int _touchIndex;
-        private GameObject _trailSource;
-
-        public TouchLocation(int newTouchIndex, GameObject newTrailSource)
+        private GameObject _touch;
+    
+        public TouchLocation(int newTouchIndex, GameObject newTouch)
         {
             _touchIndex = newTouchIndex;
-            _trailSource = newTrailSource;
+            _touch = newTouch;
         }
 
         public int TouchIndex => _touchIndex;
-        public GameObject TrailSource => _trailSource;
+        public GameObject Touch => _touch;
     }
 }

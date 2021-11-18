@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Drawing;
+using UnityEngine;
 using Model;
-using UnityEngine.UI;
 using View;
 
 namespace Controller
@@ -13,84 +14,145 @@ namespace Controller
         private readonly AnimationHandler _animator;
         private readonly CharacterView _characterView;
         private readonly CollisionHandler _collisionHandler;
-        private readonly CharacterControlView _characterControlView;
-        
+        private readonly GameObject _scene;
+
         private SpriteRenderer _characterSpriteRenderer;
         private Transform _characterTransform;
         private Rigidbody2D _characterRigidbody2D;
-        private Button _buttonRight;
-        
+        private RectTransform _rightArrow;
+        private RectTransform _leftArrow;
+        private RectTransform _upArrow;
+        private List<TouchLocation> _touchLocations = new List<TouchLocation>();
+
         private float _jumpHeight;
         private float _horizontal;
         private float _vertical;
         private bool _doJump;
-        private bool _moveRight;
-        private bool _moveLeft;
-        
+        private CharacterControlView _characterControllerView;
+
         public AndroidMovementHandler(CharacterModel characterModel, AnimationHandler animator, CharacterView characterView,
-            CollisionHandler collisionHandler, CharacterControlView characterControlView)
+            CollisionHandler collisionHandler, CharacterControlView characterControlView, GameObject scene)
         {
             _characterModel = characterModel;
             _characterView = characterView;
             _animator = animator;
             _collisionHandler = collisionHandler;
-            _characterControlView = characterControlView;
-
+            _scene = scene;
+            _characterControllerView = characterControlView;
+            
             _characterTransform = _characterView.transform;
             _characterSpriteRenderer = _characterView.CharacterSpriteRenderer;
             _characterRigidbody2D = _characterView.CharacterRigidbody2D;
             _jumpHeight = _characterModel.JumpHeight;
-            _buttonRight = _characterControlView.RightArrow;
-            _characterControlView.Init(MoveLeft, MoveRight, Jump);
+            _rightArrow = characterControlView.RightArrow.GetComponent<RectTransform>();
+            _leftArrow = characterControlView.LeftArrow.GetComponent<RectTransform>();
+            _upArrow = characterControlView.UpArrow.GetComponent<RectTransform>();
         }
 
         
-        private void MoveRight()
-        {
-            _moveRight = true;
-        }
-
-        private void MoveLeft()
-        {
-            var speed = _characterModel.Speed * Time.deltaTime;
-            _characterTransform.localPosition += Vector3.left * speed;
-
-            _characterSpriteRenderer.flipX = false;
-           
-            if (_collisionHandler.IsGrounded) 
-                _animator.MoveAnimation();
-        }
-
-        private void Jump()
-        {
-        }
-
         public void Execute(float deltaTime)
-        {   
-            Debug.LogWarning(_moveRight);
-            var isGoingSidway = Mathf.Abs(_characterRigidbody2D.velocity.x) > 0;
+        {
+            if (_scene.activeInHierarchy)
+            {
+                GetTouchedButton();
 
-            if (_collisionHandler.IsGrounded)
-                _doJump = _vertical > 0;
+                var isGoingSidway = Mathf.Abs(_horizontal) > 0;
+
+                if (_collisionHandler.IsGrounded)
+                    _doJump = _vertical > 0;
             
-            if (isGoingSidway)
-            {
-                SidewayMovement();
-            }
+                if (isGoingSidway)
+                {
+                    SidewayMovement();
+                }
 
-            if (!isGoingSidway && _collisionHandler.IsGrounded)
-            {
-                _animator.IdleAnimation();
+                if (!isGoingSidway && _collisionHandler.IsGrounded)
+                {
+                    _animator.IdleAnimation();
+                }    
             }
         }
 
-        public void LateExecute(float deltaTime)
+        private void GetTouchedButton()
         {
-            if (_doJump && _collisionHandler.IsGrounded)
+            int index = 0;
+
+            while (index < Input.touchCount)
             {
-                _characterRigidbody2D.AddForce(new Vector2(0f, _jumpHeight), ForceMode2D.Impulse);
-                _animator.JumpAnimation();
+                Touch touch = Input.GetTouch(index);
+
+                switch (touch.phase)
+                {
+                    case TouchPhase.Began:
+                        _touchLocations.Add(new TouchLocation(touch.fingerId, CreateTouchObject(touch.fingerId)));
+                        break;
+
+                    case TouchPhase.Moved:
+                        TouchLocation thisTouch = GetThisTouch(touch);
+                        
+                        if (ArrowTapped(_rightArrow.rect, thisTouch))
+                        {
+                            Debug.LogWarning("RightArrow");
+                            _horizontal = 1;
+                        }
+                        else if (ArrowTapped(_leftArrow.rect, thisTouch))
+                        {
+                            Debug.LogError("LeftArrow");
+                            _horizontal = -1;
+                        }
+                        else if (ArrowTapped(_upArrow.rect, thisTouch))
+                        {
+                            Debug.LogError("UoArrow");
+                            _vertical = 1;
+                        }
+                        break;
+                    
+                    case TouchPhase.Ended:
+                        TouchLocation touchToDelete = GetThisTouch(touch);
+                        Object.Destroy(touchToDelete.Touch);
+                        _touchLocations.RemoveAt(_touchLocations.IndexOf(touchToDelete));
+                        _horizontal = 0;
+                        _vertical = 0;
+                        break;
+                }
+
+                index++;
             }
+        }
+
+        private bool ArrowTapped(Rect rect, TouchLocation thisTouch)
+        {
+            var arrowTapped = rect.Contains(thisTouch.Touch.transform.position);
+            return arrowTapped;
+        }
+
+        private GameObject CreateTouchObject(int touchFingerId)
+        {
+            GameObject touch = new GameObject();
+            touch.transform.SetParent(_characterControllerView.transform);
+            return touch;
+        }
+
+
+        public void LateExecute(float deltaTime)                                                   
+        {                                                                                          
+            if (_doJump && _collisionHandler.IsGrounded)                                           
+            {                                                                                      
+                _characterRigidbody2D.AddForce(new Vector2(0f, _jumpHeight), ForceMode2D.Impulse); 
+                _animator.JumpAnimation();                                                         
+            }                                                                                      
+        }                                                                                          
+        
+        private TouchLocation GetThisTouch(Touch touch)
+        {
+            TouchLocation thisTouch =
+                _touchLocations.Find(location => location.TouchIndex == touch.fingerId);
+            return thisTouch;
+        }
+        
+        private Vector2 GetTouchPosition(Vector2 touchPosition)
+        {
+            return Camera.main.ScreenToWorldPoint(touchPosition);
         }
 
         private void SidewayMovement()
@@ -116,7 +178,5 @@ namespace Controller
                 }
             }
         }
-
-        
     }
 }

@@ -28,6 +28,11 @@ namespace Controller
                     _gameScene.SetActive(true);
                     break;
                 
+                case GameState.Pause:
+                    _mainMenu.SetActive(true);
+                    _gameScene.SetActive(false);
+                    break;
+                
                 case GameState.Exit:
                     _endGame.ExitPressed = true;
                     break;

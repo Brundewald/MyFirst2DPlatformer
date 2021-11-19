@@ -14,10 +14,12 @@ namespace Controller
             _mainMenuView = mainMenuView;
             _mainMenuView.Init(Start, Exit);
             _characterControlView = characterControlView;
-            _characterControlView.Init(Pause);
+            _characterControlView.Init(Pause, ForwardDash);
             
             _gameStateHandler = gameStateHandler;
         }
+
+        private void ForwardDash() {}
 
         private void Pause()
         {

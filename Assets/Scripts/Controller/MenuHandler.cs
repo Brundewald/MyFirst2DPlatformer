@@ -5,21 +5,35 @@ namespace Controller
 {
     public class MenuHandler:IInitialize
     {
-        private MainMenuView _mainMenuView;
-        public MenuHandler(MainMenuView mainMenuView)
+        private readonly MainMenuView _mainMenuView;
+        private readonly CharacterControlView _characterControlView;
+        private GameStateHandler _gameStateHandler;
+
+        public MenuHandler(MainMenuView mainMenuView, CharacterControlView characterControlView, GameStateHandler gameStateHandler)
         {
             _mainMenuView = mainMenuView;
-            _mainMenuView.Init(StartMessage, ExitMessage);
+            _mainMenuView.Init(Start, Exit);
+            _characterControlView = characterControlView;
+            _characterControlView.Init(Pause, ForwardDash);
+            
+            _gameStateHandler = gameStateHandler;
         }
 
-        private void ExitMessage()
+        private void ForwardDash() {}
+
+        private void Pause()
         {
-            Debug.LogError("Exit");
+            _gameStateHandler.OnGameStateChange(GameState.Pause);
         }
 
-        private void StartMessage()
+        private void Exit()
         {
-            Debug.LogError("Start");
+            _gameStateHandler.OnGameStateChange(GameState.Exit);
+        }
+
+        private void Start()
+        {
+            _gameStateHandler.OnGameStateChange(GameState.Start);
         }
 
         public void Initialize()

@@ -13,9 +13,9 @@ namespace View
         [Tooltip("Drag&Drop parent object for main menu")] [SerializeField]
         private GameObject _pauseMenyObject;
         
+        
         public GameObject LevelObject => _objectsOnScene;
         public GameObject MainMenu => _mainMenuObject;
         public GameObject PauseMenu => _pauseMenyObject;
-
     }
 }

@@ -8,7 +8,7 @@ namespace Controller
     {
         private Transform _trailOrigin;
         private GameObject _trailSource;
-        private List<TouchTrailLocation> _touchLocations = new List<TouchTrailLocation>();
+        private List<TouchLocation> _touchLocations = new List<TouchLocation>();
         private readonly GameObject _mainMenu;
 
         public PointerTrailHandler(Transform parent, GameObject trailObject, GameObject mainMenu)
@@ -31,15 +31,15 @@ namespace Controller
                     switch (touch.phase)
                     {
                         case TouchPhase.Began:
-                            _touchLocations.Add(new TouchTrailLocation(touch.fingerId, CreateTrail(touch.fingerId)));
+                            _touchLocations.Add(new TouchLocation(touch.fingerId, CreateTrail(touch.fingerId)));
                             break;
                         case TouchPhase.Moved:
-                            TouchTrailLocation thisTouchTrail = GetThisTouch(touch);
-                            thisTouchTrail.TrailSource.transform.position = TouchPosition(touch.position);
+                            TouchLocation thisTouchTrail = GetThisTouch(touch);
+                            thisTouchTrail.Touch.transform.position = TouchPosition(touch.position);
                             break;
                         case TouchPhase.Ended:
-                            TouchTrailLocation touchTrailToDelete = GetThisTouch(touch);
-                            Object.Destroy(touchTrailToDelete.TrailSource);
+                            TouchLocation touchTrailToDelete = GetThisTouch(touch);
+                            Object.Destroy(touchTrailToDelete.Touch);
                             _touchLocations.RemoveAt(_touchLocations.IndexOf(touchTrailToDelete));
                             break;
                     }
@@ -53,9 +53,9 @@ namespace Controller
             return Camera.main.ScreenToWorldPoint(touchPosition);
         }
 
-        private TouchTrailLocation GetThisTouch(Touch touch)
+        private TouchLocation GetThisTouch(Touch touch)
         {
-            TouchTrailLocation thisTouchTrail =
+            TouchLocation thisTouchTrail =
                 _touchLocations.Find(location => location.TouchIndex == touch.fingerId);
             return thisTouchTrail;
         }

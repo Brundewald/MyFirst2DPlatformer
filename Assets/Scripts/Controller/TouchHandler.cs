@@ -5,6 +5,7 @@ namespace Controller
 {
     public class TouchHandler
     {
+        private readonly INeedTouchHandler _touchHandler;
         private AndroidMovementHandler _androidMovementHandler;
         private PointerTrailHandler _pointerTrailHandler;
         private List<TouchLocation> _touchLocations = new List<TouchLocation>();
@@ -38,21 +39,6 @@ namespace Controller
                     case TouchPhase.Moved:
                         TouchLocation thisTouch = GetThisTouch(touch);
 
-                        if (ArrowTapped(_rightArrow, thisTouch))
-                        {
-                            Debug.LogWarning("RightArrow");
-                            _horizontal = 1;
-                        }
-                        else if (ArrowTapped(_leftArrow, thisTouch))
-                        {
-                            Debug.LogError("LeftArrow");
-                            _horizontal = -1;
-                        }
-                        else if (ArrowTapped(_upArrow, thisTouch))
-                        {
-                            Debug.LogError("UoArrow");
-                            _vertical = 1;
-                        }
 
                         break;
 

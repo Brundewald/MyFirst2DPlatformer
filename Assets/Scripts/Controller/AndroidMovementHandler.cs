@@ -6,7 +6,7 @@ using View;
 
 namespace Controller
 {
-    public class AndroidMovementHandler : IExecute, ILateExecute
+    public class AndroidMovementHandler : IExecute, ILateExecute, INeedTouchHandler
     {
         private readonly IUserInputProxy _inputProxyHorizontal;
         private readonly IUserInputProxy _inputProxyVertical;
@@ -95,7 +95,7 @@ namespace Controller
                 _animator.JumpAnimation();
             }
         }
-        
+
         private void GetTouchedButton()
         {
             int index = 0;
@@ -159,6 +159,31 @@ namespace Controller
             return touchObject;
         }
 
+        public void CheckTouchedButton(TouchLocation thisTouch)
+        {
+            if (ArrowTapped(_rightArrow, thisTouch))
+            {
+                Debug.LogWarning("RightArrow");
+                _horizontal = 1;
+            }
+            else if (ArrowTapped(_leftArrow, thisTouch))
+            {
+                Debug.LogError("LeftArrow");
+                _horizontal = -1;
+            }
+            else if (ArrowTapped(_upArrow, thisTouch))
+            {
+                Debug.LogError("UoArrow");
+                _vertical = 1;
+            }
+        }
+
+        public void SetToZero()
+        {
+            _horizontal = 0;
+            _vertical = 0;
+        }
+
         private TouchLocation GetThisTouch(Touch touch)
         {
             TouchLocation thisTouch =
@@ -193,6 +218,12 @@ namespace Controller
                         _animator.MoveAnimation();
                 }
             }
+        }
+
+        public object GetCallingObject()
+        {
+            object callingObject = typeof(AndroidMovementHandler);
+            return callingObject;
         }
     }
 }

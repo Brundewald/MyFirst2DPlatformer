@@ -37,13 +37,10 @@ namespace Controller
                 var distance = (_characterTransform.position - _enemyTransform.position).magnitude;
 
                 if (distance < _enemyReactionDistance)
-                {
                     _aiDestinationSetter.target = _characterTransform;
-                }
                 else
-                {
                     _aiDestinationSetter.target = _basePoint;
-                }
+                
 
                 _animation.EnemyMovement();
             }

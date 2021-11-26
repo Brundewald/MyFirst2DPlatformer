@@ -20,7 +20,7 @@ namespace Controller
                 _androidMovementHandler = androidMovementHandler;
             }
 
-            if (_callingClass is PointerTrailHandler pointerTrailHandler)
+            else if (_callingClass is PointerTrailHandler pointerTrailHandler)
             {
                 _isMovementHandler = false;
                 _pointerTrailHandler = pointerTrailHandler;
@@ -42,7 +42,6 @@ namespace Controller
                             _touchLocations.Add(new TouchLocation(touch.fingerId, _androidMovementHandler.CreateTouchObject(touch.fingerId, touch)));
                         else
                             _touchLocations.Add(new TouchLocation(touch.fingerId, _pointerTrailHandler.CreateTrail(touch.fingerId)));
-                        Debug.LogError("It works!!");
                         break;
 
                     case TouchPhase.Moved:

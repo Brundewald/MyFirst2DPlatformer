@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using View;
+﻿using UnityEngine;
 
 namespace Controller
 {
@@ -19,7 +17,6 @@ namespace Controller
             _touchHandler.TouchHandlerInit(this);
         }
 
-
         public void Execute(float deltaTime)
         {
             if (_mainMenu.activeInHierarchy)
@@ -30,7 +27,6 @@ namespace Controller
 
         public void GetTouchPosition(TouchLocation thisTouchTrail, Touch touch)
         {
-            Debug.LogError("This works too!!");
             thisTouchTrail.Touch.transform.position = TouchPosition(touch.position);
         }
 

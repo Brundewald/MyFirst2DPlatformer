@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Model;
 using View;
 
@@ -107,17 +106,14 @@ namespace Controller
         {
             if (ArrowTapped(_rightArrow, thisTouch))
             {
-                Debug.LogWarning("RightArrow");
                 _horizontal = 1;
             }
             else if (ArrowTapped(_leftArrow, thisTouch))
             {
-                Debug.LogError("LeftArrow");
                 _horizontal = -1;
             }
             else if (ArrowTapped(_upArrow, thisTouch))
             {
-                Debug.LogError("UoArrow");
                 _vertical = 1;
             }
         }

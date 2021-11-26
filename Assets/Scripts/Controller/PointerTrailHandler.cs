@@ -6,16 +6,17 @@ namespace Controller
 {
     public class PointerTrailHandler: IExecute
     {
+        private readonly GameObject _mainMenu;
         private Transform _trailOrigin;
         private GameObject _trailSource;
-        private List<TouchLocation> _touchLocations = new List<TouchLocation>();
-        private readonly GameObject _mainMenu;
-
+        private TouchHandler _touchHandler;
         public PointerTrailHandler(Transform parent, GameObject trailObject, GameObject mainMenu)
         {
             _trailOrigin = parent;
             _trailSource = trailObject;
             _mainMenu = mainMenu;
+            _touchHandler = new TouchHandler();
+            _touchHandler.TouchHandlerInit(this);
         }
 
 
@@ -23,29 +24,14 @@ namespace Controller
         {
             if (_mainMenu.activeInHierarchy)
             {
-                int index = 0;
-
-                while (index < Input.touchCount)
-                {
-                    Touch touch = Input.GetTouch(index);
-                    switch (touch.phase)
-                    {
-                        case TouchPhase.Began:
-                            _touchLocations.Add(new TouchLocation(touch.fingerId, CreateTrail(touch.fingerId)));
-                            break;
-                        case TouchPhase.Moved:
-                            TouchLocation thisTouchTrail = GetThisTouch(touch);
-                            thisTouchTrail.Touch.transform.position = TouchPosition(touch.position);
-                            break;
-                        case TouchPhase.Ended:
-                            TouchLocation touchTrailToDelete = GetThisTouch(touch);
-                            Object.Destroy(touchTrailToDelete.Touch);
-                            _touchLocations.RemoveAt(_touchLocations.IndexOf(touchTrailToDelete));
-                            break;
-                    }
-                    index++;
-                }   
+                _touchHandler.GetTouch(); 
             }
+        }
+
+        public void GetTouchPosition(TouchLocation thisTouchTrail, Touch touch)
+        {
+            Debug.LogError("This works too!!");
+            thisTouchTrail.Touch.transform.position = TouchPosition(touch.position);
         }
 
         private Vector2 TouchPosition(Vector2 touchPosition)
@@ -53,13 +39,7 @@ namespace Controller
             return Camera.main.ScreenToWorldPoint(touchPosition);
         }
 
-        private TouchLocation GetThisTouch(Touch touch)
-        {
-            TouchLocation thisTouchTrail =
-                _touchLocations.Find(location => location.TouchIndex == touch.fingerId);
-            return thisTouchTrail;
-        }
-        private GameObject CreateTrail(int index)
+        public GameObject CreateTrail(int index)
         {
             GameObject trail = Object.Instantiate(_trailSource, _trailOrigin);
             trail.name = $"Trail + {index}";

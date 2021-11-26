@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
 using Model;
 using View;
 
 namespace Controller
 {
-    public class AndroidMovementHandler : IExecute, ILateExecute, INeedTouchHandler
+    public class AndroidMovementHandler : IExecute, ILateExecute
     {
         private readonly IUserInputProxy _inputProxyHorizontal;
         private readonly IUserInputProxy _inputProxyVertical;
@@ -25,7 +24,7 @@ namespace Controller
         private RectTransform _rightArrow;
         private RectTransform _leftArrow;
         private RectTransform _upArrow;
-        private List<TouchLocation> _touchLocations = new List<TouchLocation>();
+        private TouchHandler _touchHandler;
 
         private float _jumpHeight;
         private float _horizontal;
@@ -43,7 +42,9 @@ namespace Controller
             _scene = scene;
             _characterControllerView = characterControlView;
             _dashParameters = dashParameters;
-
+            _touchHandler = new TouchHandler();
+            _touchHandler.TouchHandlerInit(this);
+            
             _characterTransform = _characterView.transform;
             _characterSpriteRenderer = _characterView.CharacterSpriteRenderer;
             _characterRigidbody2D = _characterView.CharacterRigidbody2D;
@@ -68,7 +69,7 @@ namespace Controller
         {
             if (_scene.activeInHierarchy)
             {
-                GetTouchedButton();
+                _touchHandler.GetTouch();
 
                 var isGoingSidway = Mathf.Abs(_horizontal) > 0;
 
@@ -96,67 +97,10 @@ namespace Controller
             }
         }
 
-        private void GetTouchedButton()
+        public void SetToZero()
         {
-            int index = 0;
-
-            while (index < Input.touchCount)
-            {
-                Touch touch = Input.GetTouch(index);
-
-                switch (touch.phase)
-                {
-                    case TouchPhase.Began:
-                        _touchLocations.Add(new TouchLocation(touch.fingerId, CreateTouchObject(touch.fingerId, touch)));
-                        break;
-
-                    case TouchPhase.Moved:
-                        TouchLocation thisTouch = GetThisTouch(touch);
-
-                        if (ArrowTapped(_rightArrow, thisTouch))
-                        {
-                            Debug.LogWarning("RightArrow");
-                            _horizontal = 1;
-                        }
-                        else if (ArrowTapped(_leftArrow, thisTouch))
-                        {
-                            Debug.LogError("LeftArrow");
-                            _horizontal = -1;
-                        }
-                        else if (ArrowTapped(_upArrow, thisTouch))
-                        {
-                            Debug.LogError("UoArrow");
-                            _vertical = 1;
-                        }
-
-                        break;
-
-                    case TouchPhase.Ended:
-                        TouchLocation touchToDelete = GetThisTouch(touch);
-                        Object.Destroy(touchToDelete.Touch);
-                        _touchLocations.RemoveAt(_touchLocations.IndexOf(touchToDelete));
-                        _horizontal = 0;
-                        _vertical = 0;
-                        break;
-                }
-
-                index++;
-            }
-        }
-
-        private bool ArrowTapped(RectTransform rect, TouchLocation thisTouch)
-        {
-            var arrowTapped = RectTransformUtility.RectangleContainsScreenPoint(rect,thisTouch.Touch.transform.position);
-            return arrowTapped;
-        }
-
-        private GameObject CreateTouchObject(int touchFingerId, Touch thisTouch)
-        {
-            GameObject touchObject = new GameObject();
-            touchObject.transform.SetParent(_characterControllerView.transform);
-            touchObject.transform.position = GetTouchPosition(thisTouch.position);
-            touchObject.name = $"Touch {touchFingerId}";
-            return touchObject;
+            _horizontal = 0;
+            _vertical = 0;
         }
 
         public void CheckTouchedButton(TouchLocation thisTouch)
@@ -177,18 +121,20 @@ namespace Controller
                 _vertical = 1;
             }
         }
-
-        public void SetToZero()
+        
+        private bool ArrowTapped(RectTransform rect, TouchLocation thisTouch)
         {
-            _horizontal = 0;
-            _vertical = 0;
+            var arrowTapped = RectTransformUtility.RectangleContainsScreenPoint(rect,thisTouch.Touch.transform.position);
+            return arrowTapped;
         }
 
-        private TouchLocation GetThisTouch(Touch touch)
+        public GameObject CreateTouchObject(int touchFingerId, Touch thisTouch)
         {
-            TouchLocation thisTouch =
-                _touchLocations.Find(location => location.TouchIndex == touch.fingerId);
-            return thisTouch;
+            GameObject touchObject = new GameObject();
+            touchObject.transform.SetParent(_characterControllerView.transform);
+            touchObject.transform.position = GetTouchPosition(thisTouch.position);
+            touchObject.name = $"Touch {touchFingerId}";
+            return touchObject;
         }
 
         private Vector2 GetTouchPosition(Vector2 touchPosition)
@@ -201,7 +147,7 @@ namespace Controller
             var speed = _characterModel.Speed * Time.deltaTime;
             _characterTransform.localPosition += Vector3.right * _horizontal * speed;
 
-            if (_horizontal != 0)
+            if (!Mathf.Approximately(_horizontal,0))
             {
                 if (_horizontal < 0)
                 {
@@ -218,12 +164,6 @@ namespace Controller
                         _animator.MoveAnimation();
                 }
             }
-        }
-
-        public object GetCallingObject()
-        {
-            object callingObject = typeof(AndroidMovementHandler);
-            return callingObject;
         }
     }
 }

@@ -10,22 +10,22 @@ namespace Controller
         private readonly Transform _characterTransform;
         private readonly Transform _basePoint;
         private readonly GameObject _scene;
-        
+        private readonly EnemyAIHandler _enemyAiHandler;
+
         private Transform _enemyTransform;
         private AIDestinationSetter _aiDestinationSetter;
         private AnimationHandler _animation;
 
 
-        public EnemyHandler(EnemyView enemyView, CharacterView characterView, Transform basePoint, AnimationHandler animationHandler, GameObject scene)
+        public EnemyHandler(EnemyView enemyView, CharacterView characterView, EnemyAIHandler enemyAiHandler,Transform basePoint, AnimationHandler animationHandler, GameObject scene)
         {
             _enemyReactionDistance = enemyView.ReactionDistance;
             _enemyTransform = enemyView.Transform;
             _aiDestinationSetter = enemyView.DestinationSetter;
+            _enemyAiHandler = enemyAiHandler;
             _scene = scene;
-
-            _basePoint = basePoint;
-
             _animation = animationHandler;
+            _basePoint = basePoint;
 
             _characterTransform = characterView.transform;
         }
@@ -34,14 +34,12 @@ namespace Controller
         {
             if (_scene.activeInHierarchy&&_enemyTransform.gameObject.activeInHierarchy)
             {
-                var distance = (_characterTransform.position - _enemyTransform.position).magnitude;
-
-                if (distance < _enemyReactionDistance)
+               
+                if (_enemyAiHandler.IsCharacterStoleApple())
                     _aiDestinationSetter.target = _characterTransform;
                 else
                     _aiDestinationSetter.target = _basePoint;
-                
-
+               
                 _animation.EnemyMovement();
             }
         }

@@ -16,6 +16,8 @@ namespace View
         private Button _pauseButton;
         [Tooltip("Drag&drop here Dash button")] [SerializeField]
         private Button _dashButton;
+        [Tooltip("Drag&drop here Drop Apple button")] [SerializeField]
+        private Button _dropButton;
 
         public void Init(UnityAction pause, UnityAction forwardDash)
         {
@@ -23,10 +25,16 @@ namespace View
             _dashButton.onClick.AddListener(forwardDash);
         }
 
+        public void DropButtonInit(UnityAction drop)
+        {
+            _dropButton.onClick.AddListener(drop);
+        }
+
         public void OnDestroy()
         {
             _pauseButton.onClick.RemoveAllListeners();
             _dashButton.onClick.RemoveAllListeners();
+            _dropButton.onClick.RemoveAllListeners();
         }
 
         public Button RightArrow => _rightArrow;

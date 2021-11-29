@@ -8,7 +8,7 @@ namespace View
         
         [Header("View")][Tooltip("Drag&Drop CharacterView here")][SerializeField]
         private CharacterView _characterView;
-        
+
         [Tooltip("Drag&Drop EnemyView here")][SerializeField]
         private EnemyView _enemyView;
     

@@ -13,11 +13,6 @@ MonoBehaviour:
   m_Name: LevelData
   m_EditorClassIdentifier: 
   _requireScore: 3
-  _groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  _characterLayerMask:
-    serializedVersion: 2
-    m_Bits: 8
+  _awarenessScore: 3
   _endGameDisplayPath: Prefabs/EndGameDisplay
   _enemyBasePoint: {fileID: 8528532267764111460, guid: d416579862dcf4f4dbd3099cf64e636b, type: 3}

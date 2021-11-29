@@ -13,7 +13,7 @@ namespace Controller
         public ScoreHandler(ScoreDisplayView scoreDisplay, CollisionHandler collisionHandler)
         {
             _collisionHandler = collisionHandler;
-            _textMeshPro = scoreDisplay.GetComponent<TextMeshProUGUI>();
+            _textMeshPro = scoreDisplay.TextToDisplay;
         }
 
         private void ScoreUpdate()
@@ -32,7 +32,16 @@ namespace Controller
             }
         }
 
-        public int ScoreCount => _scoreCount;
-
+        public int ScoreCount
+        {
+            get
+            {
+                return _scoreCount;
+            }
+            internal set
+            {
+                _scoreCount = value;
+            }
+        }
     }
 }

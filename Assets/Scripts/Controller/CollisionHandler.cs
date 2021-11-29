@@ -12,6 +12,8 @@ namespace Controller
         private const float _offset = 0.005f;
         private bool _getScore;
         private bool _isFinished;
+        private bool _isCaught;
+
         public CollisionHandler(CharacterView characterView)
         {
             _characterCollider = characterView.Collider2D;
@@ -43,6 +45,11 @@ namespace Controller
                   {
                       _isFinished = true;
                   }
+
+                  if (vCollider2D.GetComponent<EnemyView>())
+                  {
+                      _isCaught = true;
+                  }
               }
         }
 
@@ -72,20 +79,22 @@ namespace Controller
 
         public bool GetScore
         {
-            set { _getScore = value;}
+            internal set {_getScore = value;}
 
-            get { return _getScore; }
+            get {return _getScore;}
         }
 
         public bool IsFinished
         {
-            set {
-                _isFinished = value;
-            }
+            internal set {_isFinished = value;}
 
-            get {
-                return _isFinished;
-            }
+            get {return _isFinished;}
+        }
+
+        public bool CharacterCaught
+        {
+            internal set { _isCaught = value; }
+            get { return _isCaught; }
         }
     }
 }

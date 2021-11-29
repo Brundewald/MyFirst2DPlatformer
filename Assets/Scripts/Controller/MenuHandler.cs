@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using View;
+﻿using View;
 
 namespace Controller
 {
@@ -36,9 +35,6 @@ namespace Controller
             _gameStateHandler.OnGameStateChange(GameState.Start);
         }
 
-        public void Initialize()
-        {
-            
-        }
+        public void Initialize() {}
     }
 }

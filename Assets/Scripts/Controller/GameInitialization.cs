@@ -1,5 +1,4 @@
-﻿using Model;
-using UnityEngine;
+﻿using UnityEngine;
 using View;
 
 namespace Controller

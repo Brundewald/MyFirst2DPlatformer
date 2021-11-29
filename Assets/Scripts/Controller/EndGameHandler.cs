@@ -49,7 +49,7 @@ namespace Controller
                 if (_score.ScoreCount < _requireScore)
                     _collisionHandler.IsFinished = false;
             
-                if (_collisionHandler.IsFinished && _score.ScoreCount >= _requireScore)
+                else if (_collisionHandler.IsFinished && _score.ScoreCount >= _requireScore)
                 {
                     _animator.FinishAnimation();
                     if (_endGameDisplay is null)

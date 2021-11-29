@@ -12,8 +12,8 @@ namespace Controller
 
         public AnimatorInitialization(CharacterView characterView, FinishView finishView, EnemyView enemyView)
         {
-            _characterAnimator = characterView.GetComponent<Animator>();
-            _finishAnimator = finishView.GetComponent<Animator>();
+            _characterAnimator = characterView.Animator;
+            _finishAnimator = finishView.Animator;
             _enemyAnimator = enemyView.Animator;
         }
 

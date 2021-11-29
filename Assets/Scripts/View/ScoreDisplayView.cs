@@ -4,6 +4,5 @@ namespace View
 {
     public class ScoreDisplayView : MonoBehaviour
     {
-        
     }
 }

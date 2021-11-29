@@ -29,7 +29,7 @@ namespace Controller
 
         private void CollisionDetection()
         {
-              Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(_characterCollider.bounds.center, 0.2f);
+              Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(_characterCollider.bounds.center, 0.15f);
 
               foreach (var vCollider2D in collider2Ds)
               {

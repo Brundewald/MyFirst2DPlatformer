@@ -14,3 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scorePrefab: {fileID: 378119661647247557, guid: 968cbbf2a7cc67747b25068529089877, type: 3}
   _scoreForApple: 1
+  _scoreCount: 0
+  _upDistance: 0.1
+  _downDistance: 0
+  _animationDurationTime: 1
+  _shakingStrength: 0.1

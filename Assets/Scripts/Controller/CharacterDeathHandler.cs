@@ -22,20 +22,19 @@ namespace Controller
 
         public void Initialize()
         {
-            _collisionHandler.OnPlayerCaught += ReviveBlinking;
+            _collisionHandler.OnPlayerCaught += Revive;
         }
 
         public void Cleanup()
         {
-            _collisionHandler.OnPlayerCaught -= ReviveBlinking;
+            _collisionHandler.OnPlayerCaught -= Revive;
         }
 
-        private void ReviveBlinking()
+        private void Revive()
         {
             _dropScoreHandler.ResetScore();
             _characterView.transform.position = _characterSpawn.position;
-            var renderer = _characterView.CharacterSpriteRenderer;
-            renderer.transform.DOPunchRotation(Vector3.down, 3, 5);
+            _characterView.transform.DOShakeScale(3, 0.5f);
         }
     }
 }

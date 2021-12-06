@@ -43,6 +43,7 @@ namespace Controller
             controllers.Add(new AndroidMovementHandler(models.CharacterModel, animationHandler, view.CharacterView, collisionHandler,
                 view.CharacterControlView, objects.LevelObject, models.DashParameters));
             controllers.Add(new EnemyHandler(view.EnemyView, view.CharacterView, enemyAIHandler, models.LevelModel.EnemyBasePoint, animationHandler, objects.LevelObject));
+            controllers.Add(new BonusWobblingHandler(view.BonusView, models.ScoreHolder));
         }
     }
 }

@@ -25,13 +25,7 @@ namespace Controller
 
         private void DoDashTweenAnimation(float distance, float speed, Rigidbody2D rigidbody2D)
         {
-            rigidbody2D.transform.DOLocalMoveX(distance, speed);
-        }
-
-        private async void AppleFlyAnimation(float strength, float duration, Transform transform)
-        {
-            transform.DOShakeRotation(duration, strength);
-            await Task.Yield();
+            rigidbody2D.transform.DOLocalMoveX(distance, speed).SetEase(Ease.OutFlash);
         }
     }
 }

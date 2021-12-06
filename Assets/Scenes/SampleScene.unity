@@ -374,6 +374,7 @@ MonoBehaviour:
   _mainMenuView: {fileID: 1114804489}
   _trailRendererView: {fileID: 6103443591127224511}
   _characterControlView: {fileID: 313572800}
+  _bonusView: {fileID: 1166896698}
 --- !u!114 &59633099
 MonoBehaviour:
   m_ObjectHideFlags: 0

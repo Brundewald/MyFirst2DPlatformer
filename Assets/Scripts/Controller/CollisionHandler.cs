@@ -16,7 +16,7 @@ namespace Controller
         private int _scoreForApple;
         private bool _isFinished;
 
-        public event Action<int> OnGettingScore = delegate(int i) {  };
+        public event Action<int, GameObject> OnGettingScore = delegate(int i, GameObject gameObject) {  };
         public event Action OnPlayerCaught = delegate() { };
         
         public CollisionHandler(CharacterView characterView, ScoreHolder scoreHolder)
@@ -51,8 +51,10 @@ namespace Controller
         {
             if (vCollider2D.GetComponentInParent<BonusView>())
             {
-                OnGettingScore?.Invoke(_scoreForApple);
-                Object.Destroy(vCollider2D.gameObject);
+                if (vCollider2D.gameObject.activeInHierarchy)
+                    OnGettingScore?.Invoke(_scoreForApple, vCollider2D.gameObject);
+                else
+                    return;
             }
 
             if (vCollider2D.GetComponent<FinishView>())

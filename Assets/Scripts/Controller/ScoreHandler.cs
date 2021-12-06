@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using View;
@@ -40,9 +41,10 @@ namespace Controller
         }
 
 
-        private void ScoreUpdate(int scoreToAdd)
+        private void ScoreUpdate(int scoreToAdd, GameObject scoreObject)
         {
-            _scoreHolder.ScoreCount += scoreToAdd;  
+            _scoreHolder.ScoreCount += scoreToAdd;
+            scoreObject.SetActive(false);
         }
     }
 }

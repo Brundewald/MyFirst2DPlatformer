@@ -6,7 +6,6 @@ namespace Controller
 {
     public class EnemyHandler: IExecute, IInitialize
     {
-        private readonly float _enemyReactionDistance;
         private readonly Transform _characterTransform;
         private readonly Transform _basePoint;
         private readonly GameObject _scene;
@@ -19,7 +18,6 @@ namespace Controller
 
         public EnemyHandler(EnemyView enemyView, CharacterView characterView, EnemyAIHandler enemyAiHandler,Transform basePoint, AnimationHandler animationHandler, GameObject scene)
         {
-            _enemyReactionDistance = enemyView.ReactionDistance;
             _enemyTransform = enemyView.Transform;
             _aiDestinationSetter = enemyView.DestinationSetter;
             _enemyAiHandler = enemyAiHandler;

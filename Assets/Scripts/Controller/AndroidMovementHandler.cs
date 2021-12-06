@@ -51,18 +51,8 @@ namespace Controller
             _rightArrow = _characterControllerView.RightArrow.GetComponent<RectTransform>();
             _leftArrow = _characterControllerView.LeftArrow.GetComponent<RectTransform>();
             _upArrow = _characterControllerView.UpArrow.GetComponent<RectTransform>();
-            _forwardDash = new ForwardDash(dashParameters, _characterRigidbody2D, _characterSpriteRenderer);
-            _characterControllerView.Init(Pause, Dash);
         }
 
-        private void Dash()
-        {
-            _forwardDash.UseAbility();
-        }
-
-        private void Pause()
-        {
-        }
 
         public void Execute(float deltaTime)
         {

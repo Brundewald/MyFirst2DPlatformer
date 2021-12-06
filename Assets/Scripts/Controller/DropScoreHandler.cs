@@ -1,15 +1,17 @@
-﻿using View;
+﻿using System;
+using View;
 
 namespace Controller
 {
     
     public class DropScoreHandler:IInitialize
     {
-        private ScoreHandler _scoreHandler;
+        private readonly int _setZero = 0;
+        private ScoreHolder _scoreHolder;
         
-        public DropScoreHandler(ScoreHandler scoreHandler, CharacterControlView characterControl)
+        public DropScoreHandler(CharacterControlView characterControl, ScoreHolder scoreHolder)
         {
-            _scoreHandler = scoreHandler;
+            _scoreHolder = scoreHolder;
             characterControl.DropButtonInit(ResetScore);
         }
 
@@ -18,13 +20,13 @@ namespace Controller
             ResetCount();
         }
 
-        private void ResetCount()
-        {
-            _scoreHandler.ScoreCount = 0;
-        }
-
         public void Initialize()
         {
+        }
+
+        private void ResetCount()
+        {
+            _scoreHolder.ScoreCount = _setZero;
         }
     }
 }

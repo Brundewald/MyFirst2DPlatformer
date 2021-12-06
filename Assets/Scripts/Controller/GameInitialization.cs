@@ -1,5 +1,4 @@
-﻿using UnityEditor.Experimental.GraphView;
-using UnityEngine;
+﻿using UnityEngine;
 using View;
 
 namespace Controller
@@ -15,14 +14,17 @@ namespace Controller
             var animatorInitialization = new AnimatorInitialization(view.CharacterView, view.FinishView, view.EnemyView);
             var animationHandler = new AnimationHandler(animatorInitialization.CharacterAnimator(), 
                 animatorInitialization.FinishAnimator(), animatorInitialization.EnemyAnimator());
-            var collisionHandler = new CollisionHandler(view.CharacterView);
-            var scoreHandler = new ScoreHandler(view.ScoreView, collisionHandler);
-            var endGameHandler = new EndGameHandler(collisionHandler, animationHandler, scoreHandler, models.LevelModel,
+            var collisionHandler = new CollisionHandler(view.CharacterView, models.ScoreHolder);
+            var scoreHandler = new ScoreHandler(view.ScoreView, collisionHandler, models.ScoreHolder);
+            var endGameHandler = new EndGameHandler(collisionHandler, animationHandler, models.ScoreHolder, models.LevelModel,
                 view.EnemyView.gameObject, objects.LevelObject);
             var gameStateHandler = new GameStateHandler(objects.MainMenu, objects.LevelObject, endGameHandler);
-            var enemyAIHandler = new EnemyAIHandler(view.CharacterView, view.EnemyView, scoreHandler, models.LevelModel);
-            var dropScoreHandler = new DropScoreHandler(scoreHandler, view.CharacterControlView);
+            var enemyAIHandler = new EnemyAIHandler(view.CharacterView, view.EnemyView, models.ScoreHolder, models.LevelModel);
+            var dropScoreHandler = new DropScoreHandler(view.CharacterControlView, models.ScoreHolder);
             var characterDeathHandler = new CharacterDeathHandler(collisionHandler, dropScoreHandler, view.CharacterView);
+            var forwardDash = new ForwardDash(models.DashParameters, view.CharacterView.CharacterRigidbody2D,
+                view.CharacterView.CharacterSpriteRenderer, view.CharacterControlView);
+            var tweenHandler = new TweenHandler(forwardDash);
             
             controllers.Add(cameraController);
             controllers.Add(paralaxManager);
@@ -34,6 +36,7 @@ namespace Controller
             controllers.Add(enemyAIHandler);
             controllers.Add(dropScoreHandler);
             controllers.Add(characterDeathHandler);
+            controllers.Add(tweenHandler);
             controllers.Add(new MenuHandler(view.MainMenuView, view.CharacterControlView, gameStateHandler));
             controllers.Add(new PointerTrailHandler(view.TrailRendererView.TrailParent, view.TrailRendererView.TrailSource, objects.MainMenu));
             controllers.Add(new InputController(inputInitialization.GetInput()));

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Model
 {
-    [CreateAssetMenu(menuName = "CharacterData", fileName = "CharacterData")]
+    [CreateAssetMenu(menuName = "Data/CharacterData", fileName = "CharacterData")]
     public class CharacterModel : ScriptableObject
     {
         [Header("Settings")]

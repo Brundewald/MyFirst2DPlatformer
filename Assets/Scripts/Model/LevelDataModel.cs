@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using View;
 
-[CreateAssetMenu(menuName = "Data", fileName = "LevelData")]
+[CreateAssetMenu(menuName = "Data/LevelData", fileName = "LevelData")]
 public class LevelDataModel : ScriptableObject
 {
     [Header("Win Score")][Tooltip("How much score player needs to win")][SerializeField][Range(0,10)] 

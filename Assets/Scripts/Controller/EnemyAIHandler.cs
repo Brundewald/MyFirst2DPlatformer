@@ -4,18 +4,18 @@ namespace Controller
 {
     public class EnemyAIHandler:IInitialize
     {
+        private readonly ScoreHolder _scoreHolder;
         private readonly CharacterView _characterView;
-        private readonly ScoreHandler _scoreHandler;
         private readonly EnemyView _enemyView;
         private readonly int _awarenessScore;
 
         private float _reactionDistance;
 
-        public EnemyAIHandler(CharacterView characterView, EnemyView enemyView, ScoreHandler scoreHandler, LevelDataModel levelDataModel)
+        public EnemyAIHandler(CharacterView characterView, EnemyView enemyView, ScoreHolder scoreHolder, LevelDataModel levelDataModel)
         {
+            _scoreHolder = scoreHolder;
             _characterView = characterView;
             _enemyView = enemyView;
-            _scoreHandler = scoreHandler;
 
             _awarenessScore = levelDataModel.AwarenessScore;
             _reactionDistance = enemyView.ReactionDistance;
@@ -26,9 +26,10 @@ namespace Controller
         public bool IsCharacterStoleApple()
         {
             bool isAppleStolen;
+            var playerScore = _scoreHolder.ScoreCount;
             if (IsCharacterClose())
             {
-                if (_scoreHandler.ScoreCount >= _awarenessScore)
+                if (playerScore >= _awarenessScore)
                     isAppleStolen = true;
                 else
                     isAppleStolen = false;

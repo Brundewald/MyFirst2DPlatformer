@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using Controller;
+using Model;
 using UnityEngine;
 
 namespace View
@@ -12,9 +13,13 @@ namespace View
         private LevelDataModel _levelModel;
         [Tooltip("Drag&drop Dash parameters here")] [SerializeField]
         private DashParameters _dashParaters;
+        [Tooltip("Drag&drop score holder here")] [SerializeField]
+        private ScoreHolder _scoreHolder;
+
 
         public CharacterModel CharacterModel => _characterModel;
         public LevelDataModel LevelModel => _levelModel;
         public DashParameters DashParameters => _dashParaters;
+        public ScoreHolder ScoreHolder => _scoreHolder;
     }
 }

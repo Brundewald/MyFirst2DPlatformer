@@ -15,11 +15,15 @@ namespace View
         private DashParameters _dashParaters;
         [Tooltip("Drag&drop score holder here")] [SerializeField]
         private ScoreHolder _scoreHolder;
+        [Tooltip("Drag&drop reward screen data here")] [SerializeField]
+        private RewardScreenModel _rewardScreenModel;
+
 
 
         public CharacterModel CharacterModel => _characterModel;
         public LevelDataModel LevelModel => _levelModel;
         public DashParameters DashParameters => _dashParaters;
         public ScoreHolder ScoreHolder => _scoreHolder;
+        public RewardScreenModel RewardScreenModel => _rewardScreenModel;
     }
 }

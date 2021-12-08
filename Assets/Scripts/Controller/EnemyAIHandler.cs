@@ -11,14 +11,14 @@ namespace Controller
 
         private float _reactionDistance;
 
-        public EnemyAIHandler(CharacterView characterView, EnemyView enemyView, ScoreHolder scoreHolder, LevelDataModel levelDataModel)
+        public EnemyAIHandler(ViewReferenceHolder view, ModelReferenceHolder models)
         {
-            _scoreHolder = scoreHolder;
-            _characterView = characterView;
-            _enemyView = enemyView;
+            _scoreHolder = models.ScoreHolder;
+            _characterView = view.CharacterView;
+            _enemyView = view.EnemyView;
 
-            _awarenessScore = levelDataModel.AwarenessScore;
-            _reactionDistance = enemyView.ReactionDistance;
+            _awarenessScore = models.LevelModel.AwarenessScore;
+            _reactionDistance = view.EnemyView.ReactionDistance;
         }
 
         public void Initialize(){}

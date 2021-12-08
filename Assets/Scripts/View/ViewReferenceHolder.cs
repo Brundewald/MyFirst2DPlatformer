@@ -32,9 +32,12 @@ namespace View
         
         [Tooltip("Drag&Drop here Bonus View")] [SerializeField]
         private BonusView _bonusView;
+        
+        [Tooltip("Drag&Drop here Bonus View")] [SerializeField]
+        private RewardScreenView _rewardScreenView;
 
 
-
+        public RewardScreenView RewardScreenView => _rewardScreenView;
         public BonusView BonusView => _bonusView;
         public CharacterControlView CharacterControlView => _characterControlView;
         public TrailRendererView TrailRendererView => _trailRendererView;

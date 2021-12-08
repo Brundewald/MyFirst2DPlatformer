@@ -14,11 +14,11 @@ namespace Controller
         private const string _characterFinished = "Finish_Animation";
         private const string _enemyMovement = "Enemy_Movement";
 
-        public AnimationHandler(Animator characterCharacterAnimator, Animator finishAnimator, Animator enemyAnimator)
+        public AnimationHandler(AnimatorInitialization animatorInitialization)
         {
-            _characterAnimator = characterCharacterAnimator;
-            _finishAnimator = finishAnimator;
-            _enemyAnimator = enemyAnimator;
+            _characterAnimator = animatorInitialization.CharacterAnimator();
+            _finishAnimator = animatorInitialization.FinishAnimator();
+            _enemyAnimator = animatorInitialization.EnemyAnimator();
         }
 
         public void IdleAnimation()

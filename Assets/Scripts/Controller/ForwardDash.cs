@@ -14,12 +14,12 @@ namespace Controller
         
         public event Action<float, float, Rigidbody2D> DoDash = delegate(float position, float speed, Rigidbody2D rigidbody2D) {  }; 
 
-        public ForwardDash(DashParameters dashParameters, Rigidbody2D characterRigidbody, SpriteRenderer spriteRenderer, CharacterControlView characterControlView)
+        public ForwardDash(DashParameters dashParameters, ViewReferenceHolder view)
         {
             _dashParameters = dashParameters;
-            _characterRigidbody = characterRigidbody;
-            _characterSpriteRenderer = spriteRenderer;
-            _characterControlView = characterControlView;
+            _characterRigidbody = view.CharacterView.CharacterRigidbody2D;
+            _characterSpriteRenderer = view.CharacterView.CharacterSpriteRenderer;
+            _characterControlView = view.CharacterControlView;
             _characterControlView.Init(Pause, UseAbility);
         }
 

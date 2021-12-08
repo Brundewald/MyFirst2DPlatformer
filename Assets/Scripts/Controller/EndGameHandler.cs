@@ -5,8 +5,8 @@ namespace Controller
     public sealed class EndGameHandler: ILateExecute
     {
         private readonly string _endGameDisplayPath;
+        private readonly ScoreHolder _scoreHolder;
         private readonly CollisionHandler _collisionHandler;
-        private readonly ScoreHandler _score;
         private readonly GameObject _scene;
         private readonly int _requireScore;
         
@@ -17,11 +17,11 @@ namespace Controller
         
         private bool _isExitPressed;
 
-        public EndGameHandler(CollisionHandler collisionHandler, AnimationHandler animatorHandler, ScoreHandler score,
+        public EndGameHandler(CollisionHandler collisionHandler, AnimationHandler animatorHandler, ScoreHolder scoreHolder,
             LevelDataModel levelData, GameObject gameObject, GameObject scene)
         {
             _collisionHandler = collisionHandler;
-            _score = score;
+            _scoreHolder = scoreHolder;
             _requireScore = levelData.RequireScore;
             _animator = animatorHandler;
             _endGameDisplayPath = levelData.EndGameDisplayPath;
@@ -44,12 +44,13 @@ namespace Controller
 
         private void EndGameMessage()
         {
+            var score = _scoreHolder.ScoreCount;
             if (_scene.activeInHierarchy)
             {
-                if (_score.ScoreCount < _requireScore)
+                if (score < _requireScore)
                     _collisionHandler.IsFinished = false;
             
-                else if (_collisionHandler.IsFinished && _score.ScoreCount >= _requireScore)
+                else if (_collisionHandler.IsFinished && score >= _requireScore)
                 {
                     _animator.FinishAnimation();
                     if (_endGameDisplay is null)

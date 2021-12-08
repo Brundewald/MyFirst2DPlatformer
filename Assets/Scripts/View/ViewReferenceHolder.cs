@@ -8,7 +8,7 @@ namespace View
         
         [Header("View")][Tooltip("Drag&Drop CharacterView here")][SerializeField]
         private CharacterView _characterView;
-        
+
         [Tooltip("Drag&Drop EnemyView here")][SerializeField]
         private EnemyView _enemyView;
     
@@ -29,8 +29,13 @@ namespace View
         
         [Tooltip("Drag&Drop here Character Control View")] [SerializeField]
         private CharacterControlView _characterControlView;
+        
+        [Tooltip("Drag&Drop here Bonus View")] [SerializeField]
+        private BonusView _bonusView;
 
 
+
+        public BonusView BonusView => _bonusView;
         public CharacterControlView CharacterControlView => _characterControlView;
         public TrailRendererView TrailRendererView => _trailRendererView;
         public MainMenuView MainMenuView => _mainMenuView;

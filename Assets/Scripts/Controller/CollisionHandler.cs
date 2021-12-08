@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Threading.Tasks;
+using UnityEngine;
 using View;
+using Object = UnityEngine.Object;
 
 namespace Controller
 {
@@ -10,10 +13,15 @@ namespace Controller
         private readonly Collider2D _characterCollider;
         private Vector2 _rayDirectionDown = new Vector2(0f, -1f);
         private const float _offset = 0.005f;
-        private bool _getScore;
+        private int _scoreForApple;
         private bool _isFinished;
-        public CollisionHandler(CharacterView characterView)
+
+        public event Action<int, GameObject> OnGettingScore = delegate(int i, GameObject gameObject) {  };
+        public event Action OnPlayerCaught = delegate() { };
+        
+        public CollisionHandler(CharacterView characterView, ScoreHolder scoreHolder)
         {
+            _scoreForApple = scoreHolder.ScoreForApple;
             _characterCollider = characterView.Collider2D;
         }
 
@@ -27,23 +35,39 @@ namespace Controller
             CollisionDetection();
         }
 
-        private void CollisionDetection()
+        private async void CollisionDetection()
         {
               Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(_characterCollider.bounds.center, 0.15f);
 
               foreach (var vCollider2D in collider2Ds)
               {
-                  if (vCollider2D.GetComponent<BonusView>())
-                  {
-                      _getScore = true;
-                      Object.Destroy(vCollider2D.gameObject);
-                  }
-
-                  if (vCollider2D.GetComponent<FinishView>())
-                  {
-                      _isFinished = true;
-                  }
+                  CheckCollider(vCollider2D);
               }
+
+              await Task.Yield();
+        }
+
+        private async void CheckCollider(Collider2D vCollider2D)
+        {
+            if (vCollider2D.GetComponentInParent<BonusView>())
+            {
+                if (vCollider2D.gameObject.activeInHierarchy)
+                    OnGettingScore?.Invoke(_scoreForApple, vCollider2D.gameObject);
+                else
+                    return;
+            }
+
+            if (vCollider2D.GetComponent<FinishView>())
+            {
+                _isFinished = true;
+            }
+
+            if (vCollider2D.GetComponent<EnemyView>())
+            {
+                OnPlayerCaught?.Invoke();
+            }
+
+            await Task.Yield();
         }
 
         private bool OnGroundCheck()
@@ -70,22 +94,12 @@ namespace Controller
 
         public bool IsGrounded => OnGroundCheck();
 
-        public bool GetScore
-        {
-            set { _getScore = value;}
-
-            get { return _getScore; }
-        }
 
         public bool IsFinished
         {
-            set {
-                _isFinished = value;
-            }
+            internal set {_isFinished = value;}
 
-            get {
-                return _isFinished;
-            }
+            get {return _isFinished;}
         }
     }
 }

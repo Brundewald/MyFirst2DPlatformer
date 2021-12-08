@@ -1,5 +1,4 @@
 using Controller;
-using Model;
 using View;
 using UnityEngine;
 

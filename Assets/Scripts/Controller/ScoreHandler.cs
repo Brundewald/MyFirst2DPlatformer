@@ -1,38 +1,50 @@
+using System;
 using TMPro;
+using UnityEngine;
 using View;
 
 namespace Controller
 {
-    public class ScoreHandler: IExecute
+    public class ScoreHandler: IExecute, IInitialize, ICleanup
     {
         private readonly CollisionHandler _collisionHandler;
+        private ScoreHolder _scoreHolder;
         private TextMeshProUGUI _textMeshPro;
         private int _scoreCount;
         private string _text;
-        
-        public ScoreHandler(ScoreDisplayView scoreDisplay, CollisionHandler collisionHandler)
+
+        public ScoreHandler(ScoreDisplayView scoreDisplay, CollisionHandler collisionHandler, ScoreHolder scoreHolder)
         {
+            _scoreHolder = scoreHolder;
             _collisionHandler = collisionHandler;
-            _textMeshPro = scoreDisplay.GetComponent<TextMeshProUGUI>();
+            _textMeshPro = scoreDisplay.TextToDisplay;
         }
 
-        private void ScoreUpdate()
+        public void Initialize()
         {
-            _scoreCount++;
-            _collisionHandler.GetScore = false;
+            _collisionHandler.OnGettingScore += ScoreUpdate;
+        }
+
+        public void Cleanup()
+        {
+            _collisionHandler.OnGettingScore -= ScoreUpdate;
         }
 
         public void Execute (float deltaTime)
         {
-            var getScore = _collisionHandler.GetScore;
-            _textMeshPro.text = $"Score: {_scoreCount}";
-            if (getScore)
-            {
-                ScoreUpdate();
-            }
+            DisplayScore();
         }
 
-        public int ScoreCount => _scoreCount;
+        private void DisplayScore()
+        {
+            _textMeshPro.text = $"Score: {_scoreHolder.ScoreCount}";
+        }
 
+
+        private void ScoreUpdate(int scoreToAdd, GameObject scoreObject)
+        {
+            _scoreHolder.ScoreCount += scoreToAdd;
+            scoreObject.SetActive(false);
+        }
     }
 }

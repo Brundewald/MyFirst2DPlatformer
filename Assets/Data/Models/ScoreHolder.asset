@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be5bec8c968bfd145970afddc129c22e, type: 3}
+  m_Name: ScoreHolder
+  m_EditorClassIdentifier: 
+  _scorePrefab: {fileID: 378119661647247557, guid: 968cbbf2a7cc67747b25068529089877, type: 3}
+  _scoreForApple: 1
+  _scoreCount: 0
+  _upDistance: 0.1
+  _downDistance: 0
+  _animationDurationTime: 1
+  _shakingStrength: 0.1

@@ -16,7 +16,11 @@ namespace View
         
         [Tooltip("Drag&drop here character object with Animator.")][SerializeField] 
         private Animator _animator;
+        
+        [Tooltip("Drag&Drop Character spawn object here")] [SerializeField]
+        private Transform _characterSpawn;
 
+        public Transform CharacterSpawn => _characterSpawn;
         public Animator Animator => _animator;
         public SpriteRenderer CharacterSpriteRenderer => _spriteRenderer;
         public Rigidbody2D CharacterRigidbody2D => _rigidbody2D;

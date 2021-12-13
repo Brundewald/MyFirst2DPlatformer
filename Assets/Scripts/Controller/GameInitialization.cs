@@ -44,7 +44,7 @@ namespace Controller
             controllers.Add(new EnemyHandler(view.EnemyView, view.CharacterView, enemyAIHandler, models.LevelModel.EnemyBasePoint, animationHandler, objects.LevelObject));
             controllers.Add(new BonusWobblingHandler(view.BonusView, models.ScoreHolder));
             controllers.Add(new RewardBonusHandler(models.RewardScreenModel.RewardWindow, rewardMenuHandler));
-            controllers.Add(new RewardWasRecievedMessageHandler(models.RewardScreenModel.Message, rewardMenuHandler));
+            controllers.Add(new RewardWasReceivedMessageHandler(models.RewardScreenModel.Message, rewardMenuHandler));
         }
     }
 }

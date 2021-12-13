@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace Controller
 {
-    public class RewardWasRecievedMessageHandler:IInitialize, ICleanup
+    public class RewardWasReceivedMessageHandler:IInitialize, ICleanup
     {
         private readonly GameObject _messagePrefab;
         private readonly RewardMenuHandler _rewardMenuHandler;
         private GameObject _messageInstance;
         
-        public RewardWasRecievedMessageHandler(GameObject messagePrefab, RewardMenuHandler rewardMenuHandler)
+        public RewardWasReceivedMessageHandler(GameObject messagePrefab, RewardMenuHandler rewardMenuHandler)
         {
             _messagePrefab = messagePrefab;
             _rewardMenuHandler = rewardMenuHandler;
@@ -34,13 +34,11 @@ namespace Controller
                 if (_messageInstance != null)
                     Object.Destroy(_messageInstance);
             }
-            else if (_messageInstance != null)
+            else 
             { 
                 await Task.Delay(2000);
                 Object.Destroy(_messageInstance);
             }
-            else
-                return;
         }
     }
 }

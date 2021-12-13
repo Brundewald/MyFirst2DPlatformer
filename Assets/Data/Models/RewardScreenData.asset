@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rewardWindow: {fileID: 4032079221940901406, guid: ec2dcc252d49bf045a35e50cbc41f3a9, type: 3}
   _message: {fileID: 6335212288630723692, guid: 03a0fd31fa0ffbc408bea06fc6fead53, type: 3}
-  _coolDownTime: 86400
+  _coolDownTime: 30
+  _timerIsCounting: 0

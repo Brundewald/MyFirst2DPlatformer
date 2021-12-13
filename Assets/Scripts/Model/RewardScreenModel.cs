@@ -1,6 +1,4 @@
 using System;
-using UnityEditor;
-using UnityEditor.Experimental.TerrainAPI;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Data/RewardScreenData", fileName = "RewardScreenData")]

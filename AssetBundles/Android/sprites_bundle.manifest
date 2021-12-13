@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 3186939318
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 4c7fedb739fea0ad20961d4503aa55a1
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4df8c69f2c8a6ad9e3cbf82bb83e4dc3
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Graphics/Background/Blue.png
+- Assets/Graphics/Background/Pink.png
+- Assets/Graphics/Background/Brown.png
+Dependencies: []

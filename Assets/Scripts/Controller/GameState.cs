@@ -4,7 +4,7 @@
     {
         MainMenu,
         Start,
-        Pause,
+        Reward,
         Exit
     }
 }

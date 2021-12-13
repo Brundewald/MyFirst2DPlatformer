@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86f2f461c042c574b8445b7831dbc61c, type: 3}
+  m_Name: RewardScreenData
+  m_EditorClassIdentifier: 
+  _rewardWindow: {fileID: 4032079221940901406, guid: ec2dcc252d49bf045a35e50cbc41f3a9, type: 3}
+  _message: {fileID: 6335212288630723692, guid: 03a0fd31fa0ffbc408bea06fc6fead53, type: 3}
+  _coolDownTime: 30
+  _timerIsCounting: 0

@@ -32,22 +32,22 @@ namespace Controller
 
         public void LateExecute(float deltaTime)
         {
-            CollisionDetection();
+            CollisionDetectionAsync();
         }
 
-        private async void CollisionDetection()
+        private async void CollisionDetectionAsync()
         {
               Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(_characterCollider.bounds.center, 0.15f);
 
               foreach (var vCollider2D in collider2Ds)
               {
-                  CheckCollider(vCollider2D);
+                  CheckColliderAsync(vCollider2D);
               }
 
               await Task.Yield();
         }
 
-        private async void CheckCollider(Collider2D vCollider2D)
+        private async void CheckColliderAsync(Collider2D vCollider2D)
         {
             if (vCollider2D.GetComponentInParent<BonusView>())
             {

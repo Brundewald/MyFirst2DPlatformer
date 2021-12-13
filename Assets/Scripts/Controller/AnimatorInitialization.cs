@@ -10,11 +10,11 @@ namespace Controller
         private Animator _finishAnimator;
         private Animator _enemyAnimator;
 
-        public AnimatorInitialization(CharacterView characterView, FinishView finishView, EnemyView enemyView)
+        public AnimatorInitialization(ViewReferenceHolder view)
         {
-            _characterAnimator = characterView.Animator;
-            _finishAnimator = finishView.Animator;
-            _enemyAnimator = enemyView.Animator;
+            _characterAnimator = view.CharacterView.Animator;
+            _finishAnimator = view.FinishView.Animator;
+            _enemyAnimator = view.EnemyView.Animator;
         }
 
         public Animator CharacterAnimator()

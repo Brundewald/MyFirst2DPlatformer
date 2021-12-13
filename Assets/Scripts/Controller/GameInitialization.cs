@@ -11,20 +11,18 @@ namespace Controller
             var inputInitialization = new InputInitialization();
             var cameraController = new CameraController(camera, view.CharacterView);
             var paralaxManager = new ParalaxManager(camera, view.BackgroundView);
-            var animatorInitialization = new AnimatorInitialization(view.CharacterView, view.FinishView, view.EnemyView);
-            var animationHandler = new AnimationHandler(animatorInitialization.CharacterAnimator(), 
-                animatorInitialization.FinishAnimator(), animatorInitialization.EnemyAnimator());
+            var animatorInitialization = new AnimatorInitialization(view);
+            var animationHandler = new AnimationHandler(animatorInitialization);
             var collisionHandler = new CollisionHandler(view.CharacterView, models.ScoreHolder);
             var scoreHandler = new ScoreHandler(view.ScoreView, collisionHandler, models.ScoreHolder);
-            var endGameHandler = new EndGameHandler(collisionHandler, animationHandler, models.ScoreHolder, models.LevelModel,
-                view.EnemyView.gameObject, objects.LevelObject);
-            var gameStateHandler = new GameStateHandler(objects.MainMenu, objects.LevelObject, endGameHandler);
-            var enemyAIHandler = new EnemyAIHandler(view.CharacterView, view.EnemyView, models.ScoreHolder, models.LevelModel);
+            var endGameHandler = new EndGameHandler(collisionHandler, animationHandler, models, objects);
+            var gameStateHandler = new GameStateHandler(objects);
+            var enemyAIHandler = new EnemyAIHandler(view, models);
             var dropScoreHandler = new DropScoreHandler(view.CharacterControlView, models.ScoreHolder);
             var characterDeathHandler = new CharacterDeathHandler(collisionHandler, dropScoreHandler, view.CharacterView);
-            var forwardDash = new ForwardDash(models.DashParameters, view.CharacterView.CharacterRigidbody2D,
-                view.CharacterView.CharacterSpriteRenderer, view.CharacterControlView);
+            var forwardDash = new ForwardDash(models.DashParameters, view);
             var tweenHandler = new TweenHandler(forwardDash);
+            var rewardMenuHandler = new RewardMenuHandler(view, models, gameStateHandler);
             
             controllers.Add(cameraController);
             controllers.Add(paralaxManager);
@@ -37,13 +35,16 @@ namespace Controller
             controllers.Add(dropScoreHandler);
             controllers.Add(characterDeathHandler);
             controllers.Add(tweenHandler);
-            controllers.Add(new MenuHandler(view.MainMenuView, view.CharacterControlView, gameStateHandler));
+            controllers.Add(rewardMenuHandler);
+            controllers.Add(new MenuHandler(view, gameStateHandler));
             controllers.Add(new PointerTrailHandler(view.TrailRendererView.TrailParent, view.TrailRendererView.TrailSource, objects.MainMenu));
             controllers.Add(new InputController(inputInitialization.GetInput()));
             controllers.Add(new AndroidMovementHandler(models.CharacterModel, animationHandler, view.CharacterView, collisionHandler,
                 view.CharacterControlView, objects.LevelObject, models.DashParameters));
             controllers.Add(new EnemyHandler(view.EnemyView, view.CharacterView, enemyAIHandler, models.LevelModel.EnemyBasePoint, animationHandler, objects.LevelObject));
             controllers.Add(new BonusWobblingHandler(view.BonusView, models.ScoreHolder));
+            controllers.Add(new RewardBonusHandler(models.RewardScreenModel.RewardWindow, rewardMenuHandler));
+            controllers.Add(new RewardWasReceivedMessageHandler(models.RewardScreenModel.Message, rewardMenuHandler));
         }
     }
 }

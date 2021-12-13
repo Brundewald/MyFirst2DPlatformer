@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using View;
 
 namespace Controller
 {
@@ -13,34 +14,24 @@ namespace Controller
         private AnimationHandler _animator;
         private GameObject _endGameDisplayPrefab;
         private GameObject _endGameDisplay;
-        private GameObject _enemyObject;
         
-        private bool _isExitPressed;
 
-        public EndGameHandler(CollisionHandler collisionHandler, AnimationHandler animatorHandler, ScoreHolder scoreHolder,
-            LevelDataModel levelData, GameObject gameObject, GameObject scene)
+        public EndGameHandler(CollisionHandler collisionHandler, AnimationHandler animatorHandler, ModelReferenceHolder models, ObjectReferenceHolder objects)
         {
             _collisionHandler = collisionHandler;
-            _scoreHolder = scoreHolder;
-            _requireScore = levelData.RequireScore;
+            _scoreHolder = models.ScoreHolder;
+            _requireScore = models.LevelModel.RequireScore;
             _animator = animatorHandler;
-            _endGameDisplayPath = levelData.EndGameDisplayPath;
+            _endGameDisplayPath = models.LevelModel.EndGameDisplayPath;
             _endGameDisplayPrefab = Resources.Load<GameObject>(_endGameDisplayPath);
-            _enemyObject = gameObject;
-            _scene = scene;
+            _scene = objects.LevelObject;
         }
 
         public void LateExecute(float deltaTime)
         {
             EndGameMessage();
-            GameExit();
         }
 
-        private void GameExit()
-        {
-            if (_isExitPressed)
-                Application.Quit();
-        }
 
         private void EndGameMessage()
         {
@@ -56,15 +47,9 @@ namespace Controller
                     if (_endGameDisplay is null)
                     {
                         _endGameDisplay = Object.Instantiate(_endGameDisplayPrefab);
-                        _enemyObject.SetActive(false);
                     }
                 }    
             }
-        }
-        
-        public bool ExitPressed
-        {
-            set { _isExitPressed = value;}
         }
     }
 }

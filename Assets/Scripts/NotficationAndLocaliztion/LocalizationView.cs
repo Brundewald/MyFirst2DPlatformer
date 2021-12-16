@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -11,6 +8,14 @@ using UnityEngine.UI;
 
 public class LocalizationView : MonoBehaviour
 {
+    [SerializeField] private static readonly string CouldNotLoadStringTable = "Could not load String Table\n";
+    [SerializeField] private readonly string _tableReference = "M2FP";
+    [SerializeField] private readonly string _messageTextKey = "Message_text";
+    [SerializeField] private readonly string _showNotificationButtonKey = "ShowNotificationButton";
+    [SerializeField] private readonly string _chooseLanguageKey = "ChooseLanguage";
+    [SerializeField] private readonly string _russianButtonKey = "RussianButton";
+    [SerializeField] private readonly string _englishButtonKey = "EnglishButton";
+
     [SerializeField] private TMP_Text _showNotificationText;
     [SerializeField] private TMP_Text _messageText;
     [SerializeField] private TMP_Text _chooseLanguageText;
@@ -42,21 +47,21 @@ public class LocalizationView : MonoBehaviour
 
     private async Task OnLocaleChange(Locale locale)
     {
-        var loadingOperation = LocalizationSettings.StringDatabase.GetTableAsync("M2FP");
+        var loadingOperation = LocalizationSettings.StringDatabase.GetTableAsync(_tableReference);
         await Task.Yield();
 
         if (loadingOperation.Status == AsyncOperationStatus.Succeeded)
         {
             var table = loadingOperation.Result;
-            _messageText.text = table.GetEntry("Message_text")?.GetLocalizedString();
-            _showNotificationText.text = table.GetEntry("ShowNotificationButton")?.GetLocalizedString();
-            _chooseLanguageText.text = table.GetEntry("ChooseLanguage")?.GetLocalizedString();
-            _russianButtonText.text = table.GetEntry("RussianButton")?.GetLocalizedString();
-            _englishButtonText.text = table.GetEntry("EnglishButton")?.GetLocalizedString();
+            _messageText.text = table.GetEntry(_messageTextKey)?.GetLocalizedString();
+            _showNotificationText.text = table.GetEntry(_showNotificationButtonKey)?.GetLocalizedString();
+            _chooseLanguageText.text = table.GetEntry(_chooseLanguageKey)?.GetLocalizedString();
+            _russianButtonText.text = table.GetEntry(_russianButtonKey)?.GetLocalizedString();
+            _englishButtonText.text = table.GetEntry(_englishButtonKey)?.GetLocalizedString();
         }
         else
         {
-            Debug.Log("Could not load String Table\n"+ loadingOperation.OperationException);
+            Debug.Log(CouldNotLoadStringTable+ loadingOperation.OperationException);
         }
     }
 

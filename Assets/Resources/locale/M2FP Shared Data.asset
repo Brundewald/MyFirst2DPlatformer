@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: M2FP Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: M2FP
+  m_TableCollectionNameGuidString: 092e45677b7b14d48a91121edd516857
+  m_Entries:
+  - m_Id: 20090449920
+    m_Key: Message_text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 568537640960
+    m_Key: ShowNotificationButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 743352037376
+    m_Key: ChooseLanguage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1059111825408
+    m_Key: RussianButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1154293166080
+    m_Key: EnglishButton
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1639659852837

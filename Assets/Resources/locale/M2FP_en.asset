@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: M2FP_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 092e45677b7b14d48a91121edd516857, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 20090449920
+    m_Localized: This is Notification and Localization test screen.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 568537640960
+    m_Localized: "Show Notification\t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 743352037376
+    m_Localized: "Choose languge\t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1059111825408
+    m_Localized: Russian
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1154293166080
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 1

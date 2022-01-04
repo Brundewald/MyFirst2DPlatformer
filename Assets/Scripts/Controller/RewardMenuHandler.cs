@@ -12,7 +12,6 @@ namespace Controller
         private readonly RewardScreenModel _rewardScreenModel;
         private readonly GameStateHandler _gameStateHandler;
         private readonly TextMeshProUGUI _timerHolder;
-        private DataSaveHandler _dataSaveHandler;
         
         public event Action ShowScreenToPlayer = delegate() {  }; 
         public event Action ShowMessageToPlayer = delegate() {  }; 
@@ -22,16 +21,11 @@ namespace Controller
             _rewardScreenModel = models.RewardScreenModel;
             _gameStateHandler = gameStateHandler;
             _timerHolder = _rewardScreenView.TimerHolder;
-            _dataSaveHandler = new DataSaveHandler(models.RewardScreenModel);
         }
 
         public async void Initialize()
         {
             _rewardScreenView.Init(Back,GetReward);
-            
-            var loadedData = _dataSaveHandler.LoadRewardData();
-            _rewardScreenModel.RewardWasTaken = loadedData.RewardWasTaken;
-            _rewardScreenModel.WhenRewardWasTaken = TimeSpan.Parse(loadedData.DateTimeWhenRewardWasTaken);
             
             if (_rewardScreenModel.RewardWasTaken)
             {
@@ -43,7 +37,6 @@ namespace Controller
 
         public void Cleanup()
         {
-            _dataSaveHandler.SaveRewardData();
         }
 
         private async void GetReward()
@@ -67,7 +60,7 @@ namespace Controller
             while (_rewardScreenModel.RewardWasTaken)
             {
                 var currentTime = DateTime.UtcNow.TimeOfDay;
-                Debug.LogError(_rewardScreenModel.WhenRewardWasTaken + "\n\r" + currentTime);
+                Debug.Log(_rewardScreenModel.WhenRewardWasTaken + "\n\r" + currentTime);
                 var time = currentTime - _rewardScreenModel.WhenRewardWasTaken;
                 var timeLeft = TimeSpan.FromSeconds(_rewardScreenModel.CoolDownTime) - time;
                 
@@ -78,7 +71,7 @@ namespace Controller
                 
                 if (timerStopCounting)
                 {
-                    Debug.LogError(_rewardScreenModel.RewardWasTaken);
+                    Debug.Log(_rewardScreenModel.RewardWasTaken);
                     _rewardScreenModel.RewardWasTaken = false;
                 }
                 await Task.Yield();
